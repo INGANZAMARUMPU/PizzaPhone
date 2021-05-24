@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class AdapterPizza extends RecyclerView.Adapter<AdapterPizza.PizzaItem> {
@@ -35,6 +37,7 @@ public class AdapterPizza extends RecyclerView.Adapter<AdapterPizza.PizzaItem> {
         holder.card_ingredient.setText(pizza.ingredients);
         holder.card_name.setText(pizza.nom);
         holder.card_prix.setText(pizza.prix);
+        Glide.with(activity).load(HOST.URL+"/"+(pizza.image)+".jpg").into(holder.card_image);
     }
 
     @Override
