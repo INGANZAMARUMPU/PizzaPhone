@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
+            android:id="@+id/card_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"
@@ -27,12 +28,14 @@
                 android:orientation="horizontal"
                 android:gravity="center">
                 <TextView
+                    android:id="@+id/card_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Vegetarienne"
                     android:layout_weight="1"
                     android:textSize="12pt"/>
                 <TextView
+                    android:id="@+id/card_prix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="12.9 F"/>
@@ -42,6 +45,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <TextView
+                    android:id="@+id/card_ingredient"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="7pt"
@@ -53,18 +57,21 @@
                     android:orientation="horizontal"
                     android:gravity="center">
                     <Button
+                        android:id="@+id/card_btn_plus"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:text="-"
                         android:background="#37f"
                         android:textColor="#fff"/>
                     <TextView
+                        android:id="@+id/card_qtt"
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
                         android:text="0"
                         android:textAlignment="center"
                         android:textSize="10pt"/>
                     <Button
+                        android:id="@+id/card_btn_moins"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:text="+"

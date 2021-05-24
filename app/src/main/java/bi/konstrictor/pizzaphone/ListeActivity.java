@@ -46,7 +46,7 @@ public class ListeActivity extends AppCompatActivity {
 
     private void chargerPizzas() {
         OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(HOST.URL + "/list").newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(HOST.URL).newBuilder();
 
         String url = urlBuilder.build().toString();
         Request request = new Request.Builder()
@@ -60,21 +60,29 @@ public class ListeActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                Log.i(TAG, json);
                 try {
                     JSONObject json_items = new JSONObject(json);
+                    JSONObject json_item = new JSONObject(json);
                     Iterator<String> keys = json_items.keys();
+                    Pizza pizza;
                     while (keys.hasNext()){
                         String key = keys.next();
-                        pizzas.add(new Pizza(
-                                json_items.getString("prix"),
-                                json_items.getString("ingredients"),
-                                json_items.getString("image"),
-                                key
-                            )
+                        json_item = json_items.getJSONObject(key);
+                        pizza = new Pizza(
+                            json_item.getString("prix"),
+                            json_item.getString("ingredients"),
+                            json_item.getString("image"),
+                            key
                         );
+                        Log.i(TAG, pizza.toString());
+                        pizzas.add(pizza);
                     }
-                    adaptateur.notifyDataSetChanged();
+                    ListeActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            adaptateur.notifyDataSetChanged();
+                        }
+                    });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

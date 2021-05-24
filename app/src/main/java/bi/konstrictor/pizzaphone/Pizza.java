@@ -9,4 +9,14 @@ public class Pizza {
         this.image = image;
         this.nom = nom;
     }
+
+    @Override
+    public String toString() {
+        return "Pizza{" +
+                "prix='" + prix + '\'' +
+                ", ingredients='" + ingredients + '\'' +
+                ", image='" + image + '\'' +
+                ", nom='" + nom + '\'' +
+                '}';
+    }
 }
