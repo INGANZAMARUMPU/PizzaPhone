@@ -55,7 +55,9 @@
                     <Button
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:text="-"/>
+                        android:text="-"
+                        android:background="#37f"
+                        android:textColor="#fff"/>
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="wrap_content"
@@ -65,7 +67,9 @@
                     <Button
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:text="+"/>
+                        android:text="+"
+                        android:background="#37f"
+                        android:textColor="#fff"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

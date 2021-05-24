@@ -38,7 +38,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="se connecter"
-            android:onClick="listerLesPizzas"/>
+            android:onClick="listerLesPizzas"
+            android:background="#37f"
+            android:textColor="#fff"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
