@@ -1,13 +1,18 @@
 package bi.konstrictor.pizzaphone;
 
-public class Pizza {
-    public String prix, ingredients, image, nom;
+import androidx.lifecycle.MutableLiveData;
 
-    public Pizza(String prix, String ingredients, String image, String nom) {
+public class Pizza {
+    public String ingredients, image, nom;
+    public Double prix;
+    public int quantite;
+
+    public Pizza(Double prix, String ingredients, String image, String nom) {
         this.prix = prix;
         this.ingredients = ingredients;
         this.image = image;
         this.nom = nom;
+        this.quantite = 0;
     }
 
     @Override

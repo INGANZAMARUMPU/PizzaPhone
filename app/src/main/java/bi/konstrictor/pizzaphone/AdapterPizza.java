@@ -9,17 +9,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class AdapterPizza extends RecyclerView.Adapter<AdapterPizza.PizzaItem> {
-    private Activity activity;
+public class AdapterPizza extends RecyclerView.Adapter<AdapterPizza.PizzaItem>{
+    private ListeActivity activity;
     private ArrayList<Pizza> pizzas;
 
-    public AdapterPizza(Activity activity, ArrayList<Pizza> pizzas) {
+    public AdapterPizza(ListeActivity activity, ArrayList<Pizza> pizzas) {
         this.activity = activity;
         this.pizzas = pizzas;
     }
@@ -32,11 +37,30 @@ public class AdapterPizza extends RecyclerView.Adapter<AdapterPizza.PizzaItem> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PizzaItem holder, int position) {
+    public void onBindViewHolder(@NonNull final PizzaItem holder, int position) {
         final Pizza pizza = pizzas.get(position);
         holder.card_ingredient.setText(pizza.ingredients);
         holder.card_name.setText(pizza.nom);
-        holder.card_prix.setText(pizza.prix);
+        holder.card_prix.setText(pizza.prix.toString());
+        holder.card_qtt.setText(""+pizza.quantite);
+        holder.card_btn_moins.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(pizza.quantite>0) {
+                    pizza.quantite--;
+                    activity.evaluerLesQuantites();
+                    holder.card_qtt.setText(""+pizza.quantite);
+                }
+            }
+        });
+        holder.card_btn_plus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pizza.quantite++;
+                activity.evaluerLesQuantites();
+                holder.card_qtt.setText(""+pizza.quantite);
+            }
+        });
         Glide.with(activity).load(HOST.URL+"/"+(pizza.image)+".jpg").into(holder.card_image);
     }
 

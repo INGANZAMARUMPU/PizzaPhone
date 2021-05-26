@@ -57,7 +57,7 @@
                     android:orientation="horizontal"
                     android:gravity="center">
                     <Button
-                        android:id="@+id/card_btn_plus"
+                        android:id="@+id/card_btn_moins"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:text="-"
@@ -71,7 +71,7 @@
                         android:textAlignment="center"
                         android:textSize="10pt"/>
                     <Button
-                        android:id="@+id/card_btn_moins"
+                        android:id="@+id/card_btn_plus"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
                         android:text="+"

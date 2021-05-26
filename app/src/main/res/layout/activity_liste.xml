@@ -44,6 +44,7 @@
                 android:text="Quantité: "
                 android:layout_margin="5dp"/>
             <TextView
+                android:id="@+id/txt_main_qtt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
@@ -54,6 +55,7 @@
                 android:text="Prix: "
                 android:layout_margin="5dp"/>
             <TextView
+                android:id="@+id/txt_main_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="30F"

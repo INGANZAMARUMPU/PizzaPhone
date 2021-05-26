@@ -1,6 +1,8 @@
 package bi.konstrictor.pizzaphone;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -29,11 +32,17 @@ public class ListeActivity extends AppCompatActivity {
     private String reminder;
     private ArrayList<Pizza> pizzas;
     private AdapterPizza adaptateur;
+    private TextView txt_main_total, txt_main_qtt;
+    public MutableLiveData<Double> total = new MutableLiveData<>();
+    public MutableLiveData<Integer> quantite = new MutableLiveData<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_liste);
+
+        txt_main_total = findViewById(R.id.txt_main_total);
+        txt_main_qtt = findViewById(R.id.txt_main_qtt);
 
         reminder = getIntent().getStringExtra("reminder");
 
@@ -42,6 +51,18 @@ public class ListeActivity extends AppCompatActivity {
         adaptateur = new AdapterPizza(this, pizzas);
         recycler.setAdapter(adaptateur);
         chargerPizzas();
+        total.observe(this, new Observer<Double>() {
+            @Override
+            public void onChanged(Double value) {
+                txt_main_total.setText(value.toString());
+            }
+        });
+        quantite.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                txt_main_qtt.setText(integer.toString());
+            }
+        });
     }
 
     private void chargerPizzas() {
@@ -69,7 +90,7 @@ public class ListeActivity extends AppCompatActivity {
                         String key = keys.next();
                         json_item = json_items.getJSONObject(key);
                         pizza = new Pizza(
-                            json_item.getString("prix"),
+                            json_item.getDouble("prix"),
                             json_item.getString("ingredients"),
                             json_item.getString("image"),
                             key
@@ -88,5 +109,16 @@ public class ListeActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void evaluerLesQuantites(){
+        int qtt = 0;
+        double total = 0;
+        for(Pizza pizza:pizzas){
+            if(pizza.quantite == 0) continue;
+            qtt += pizza.quantite;
+            total += pizza.quantite*pizza.prix;
+        }
+        this.quantite.setValue(qtt);
+        this.total.setValue(total);
     }
 }
