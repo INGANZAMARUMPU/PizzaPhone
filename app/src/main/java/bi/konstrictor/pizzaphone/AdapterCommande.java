@@ -1,4 +1,4 @@
-package bi.konstrictor.commandephone;
+package bi.konstrictor.pizzaphone;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -40,6 +40,7 @@ public class AdapterCommande extends RecyclerView.Adapter<AdapterCommande.Comman
         holder.txt_id_commande.setText(commande.id_commande);
         holder.txt_commande_prix.setText(commande.total);
         holder.txt_references.setText(commande.toString());
+        holder.txt_commande_date.setText(commande.time);
     }
 
     @Override
@@ -47,13 +48,18 @@ public class AdapterCommande extends RecyclerView.Adapter<AdapterCommande.Comman
         return commandes.size();
     }
 
+    public void setData(ArrayList<Commande> commandes) {
+        this.commandes = commandes;
+    }
+
     public class CommandeItem extends RecyclerView.ViewHolder {
-        TextView txt_id_commande, txt_commande_prix, txt_references;
+        TextView txt_id_commande, txt_commande_prix, txt_references, txt_commande_date;
         public CommandeItem(@NonNull View itemView) {
             super(itemView);
             txt_id_commande = itemView.findViewById(R.id.txt_id_commande);
             txt_references = itemView.findViewById(R.id.txt_references);
             txt_commande_prix = itemView.findViewById(R.id.txt_commande_prix);
+            txt_commande_date = itemView.findViewById(R.id.txt_commande_date);
         }
     }
 }

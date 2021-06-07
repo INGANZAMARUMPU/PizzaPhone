@@ -1,19 +1,17 @@
 package bi.konstrictor.pizzaphone;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-import bi.konstrictor.commandephone.AdapterCommande;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
@@ -22,7 +20,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class CommandesActivity extends AppCompatActivity {
-
     private static final String TAG = "=== COMMANDES ===";
     private RecyclerView recycler;
     private ArrayList<Commande> commandes;
@@ -38,7 +35,7 @@ public class CommandesActivity extends AppCompatActivity {
 
         recycler = findViewById(R.id.liste_pizza);
         commandes = new ArrayList<>();
-        adaptateur = new bi.konstrictor.commandephone.AdapterCommande(this, commandes);
+        adaptateur = new AdapterCommande(this, commandes);
         recycler.setAdapter(adaptateur);
         chargerCommandes();
     }
@@ -70,16 +67,16 @@ public class CommandesActivity extends AppCompatActivity {
                         commande = new Commande(
                                 json_item.getString("idCommande"),
                                 json_item.getString("Total"),
-                                json_item.getString("Time"),
+                                json_item.getLong("Time"),
                                 json_item.getString("References")
                         );
-                        Log.i(TAG, commande.toString());
                         commandes.add(commande);
                     }
                     CommandesActivity.this.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            adaptateur.notifyDataSetChanged();
+                        adaptateur.setData(commandes);
+                        adaptateur.notifyDataSetChanged();
                         }
                     });
                 } catch (Exception e) {
