@@ -67,7 +67,8 @@
                 android:background="#37f"
                 android:textColor="#fff"
                 android:padding="10dp"
-                android:layout_margin="5dp"/>
+                android:layout_margin="5dp"
+                android:onClick="commander"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

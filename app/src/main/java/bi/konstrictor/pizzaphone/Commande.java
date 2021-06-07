@@ -42,6 +42,6 @@ public class Commande {
             if(displayed.contains(s)) continue;
             txt += ""+getQuantite(s)+" "+s+", ";
         }
-        return txt.substring(0, txt.length()-3);
+        return txt.substring(0, txt.length()-2);
     }
 }

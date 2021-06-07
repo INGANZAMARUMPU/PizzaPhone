@@ -10,7 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONObject;
 
@@ -23,6 +25,7 @@ import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class ListeActivity extends AppCompatActivity {
@@ -134,5 +137,52 @@ public class ListeActivity extends AppCompatActivity {
         }
         this.quantite.setValue(qtt);
         this.total.setValue(total);
+    }
+
+    public void commander(View view) {
+        String str_commande = "";
+        for(Pizza pizza:pizzas){
+            if(pizza.quantite == 0) continue;
+            String str_pizza = "";
+            for (int i = 0; i<pizza.quantite; i++){
+                str_pizza+=pizza.nom+",";
+            }
+            str_commande += str_pizza;
+        }
+        str_commande = str_commande.substring(0, str_commande.length()-1);
+        OkHttpClient client = new OkHttpClient();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(HOST.URL + "/order/"+str_commande).newBuilder();
+        String url = urlBuilder.build().toString();
+        final RequestBody body = RequestBody.create("", null);
+        Request request = new Request.Builder().url(url).addHeader("Cookie", reminder).post(body).build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, final IOException e) {
+                ListeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(ListeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                Log.i(TAG, json);
+                HOST.toast(ListeActivity.this, "la commande a été soumise", Toast.LENGTH_LONG);
+                ListeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        for(Pizza pizza:pizzas){
+                            pizza.quantite = 0;
+                        }
+                        total.setValue(0.);
+                        quantite.setValue(0);
+                    }
+                });
+            }
+        });
     }
 }
