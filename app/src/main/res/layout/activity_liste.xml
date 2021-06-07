@@ -58,7 +58,7 @@
                 android:id="@+id/txt_main_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30F"
+                android:text="0F"
                 android:layout_margin="5dp"/>
             <Button
                 android:layout_width="wrap_content"

@@ -83,7 +83,7 @@ public class ListeActivity extends AppCompatActivity {
                 String json = response.body().string();
                 try {
                     JSONObject json_items = new JSONObject(json);
-                    JSONObject json_item = new JSONObject(json);
+                    JSONObject json_item;
                     Iterator<String> keys = json_items.keys();
                     Pizza pizza;
                     while (keys.hasNext()){
