@@ -3,13 +3,13 @@ package bi.konstrictor.pizzaphone;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.json.JSONObject;
@@ -65,6 +65,21 @@ public class ListeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if(id == R.id.action_commandes) {
+            Intent intent = new Intent(this, CommandesActivity.class);
+            intent.putExtra("reminder", reminder);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
     private void chargerPizzas() {
         OkHttpClient client = new OkHttpClient();
         HttpUrl.Builder urlBuilder = HttpUrl.parse(HOST.URL).newBuilder();
@@ -95,7 +110,6 @@ public class ListeActivity extends AppCompatActivity {
                             json_item.getString("image"),
                             key
                         );
-                        Log.i(TAG, pizza.toString());
                         pizzas.add(pizza);
                     }
                     ListeActivity.this.runOnUiThread(new Runnable() {

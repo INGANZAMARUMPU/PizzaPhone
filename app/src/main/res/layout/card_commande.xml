@@ -6,48 +6,58 @@
     android:layout_margin="5dp"
     android:elevation="20dp"
     app:cardCornerRadius="5dp">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:padding="5dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Facture No. #"
-                android:textSize="12pt"/>
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Facture No. #"
+                    android:textSize="12pt"/>
+                <TextView
+                    android:id="@+id/txt_id_commande"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="41"
+                    android:textSize="12pt"
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:textColor="#000"/>
+                <TextView
+                    android:id="@+id/txt_commande_prix"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="38.7"
+                    android:textSize="12pt"
+                    android:textColor="#070"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" F"
+                    android:textSize="12pt"
+                    android:textColor="#070"/>
+            </LinearLayout>
             <TextView
-                android:id="@+id/txt_id_commande"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_references"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="41"
-                android:textSize="12pt"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="#000"/>
-            <TextView
-                android:id="@+id/txt_commande_prix"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="38.7"
-                android:textSize="12pt"
-                android:textColor="#070"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" F"
-                android:textSize="12pt"
-                android:textColor="#070"/>
+                android:text="3 Coulis, 1 tomates fraiches, 2 fromages, 1 olives"
+                android:textSize="10pt"/>
         </LinearLayout>
         <TextView
-            android:id="@+id/txt_references"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3 Coulis, 1 tomates fraiches, 2 fromages, 1 olives"
-            android:textSize="10pt"/>
-    </LinearLayout>
+            android:text="07 juin 2021"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
