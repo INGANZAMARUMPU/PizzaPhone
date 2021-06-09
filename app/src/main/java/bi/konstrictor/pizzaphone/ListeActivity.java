@@ -140,6 +140,7 @@ public class ListeActivity extends AppCompatActivity {
     }
 
     public void commander(View view) {
+        if(quantite.getValue() == 0) return;
         String str_commande = "";
         for(Pizza pizza:pizzas){
             if(pizza.quantite == 0) continue;

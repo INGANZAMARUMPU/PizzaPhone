@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(LoginActivity.this, "connexion...", Toast.LENGTH_SHORT).show();
 
         OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(HOST.URL + "/login/"+user_name).newBuilder();
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(HOST.URL + "/login/"+user_name.getText()).newBuilder();
         String url = urlBuilder.build().toString();
         RequestBody body = RequestBody.create("", null);
         Request request = new Request.Builder().url(url).post(body).build();
