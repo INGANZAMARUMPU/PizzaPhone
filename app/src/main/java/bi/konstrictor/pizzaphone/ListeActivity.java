@@ -140,7 +140,10 @@ public class ListeActivity extends AppCompatActivity {
     }
 
     public void commander(View view) {
-        if(quantite.getValue() == 0) return;
+        if(quantite.getValue() == null || quantite.getValue() == 0){
+            HOST.toast(this, "La commande ne peut pas être vide", Toast.LENGTH_LONG);
+            return;
+        }
         String str_commande = "";
         for(Pizza pizza:pizzas){
             if(pizza.quantite == 0) continue;
@@ -169,20 +172,25 @@ public class ListeActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                Log.i(TAG, json);
-                HOST.toast(ListeActivity.this, "la commande a été soumise", Toast.LENGTH_LONG);
-                ListeActivity.this.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for(Pizza pizza:pizzas){
-                            pizza.quantite = 0;
+            public void onResponse(Call call, Response response){
+                String json = null;
+                try {
+                    json = response.body().string();
+                    Log.i(TAG, json);
+                    HOST.toast(ListeActivity.this, "la commande a été soumise", Toast.LENGTH_LONG);
+                    ListeActivity.this.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            for(Pizza pizza:pizzas){
+                                pizza.quantite = 0;
+                            }
+                            total.setValue(0.);
+                            quantite.setValue(0);
                         }
-                        total.setValue(0.);
-                        quantite.setValue(0);
-                    }
-                });
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

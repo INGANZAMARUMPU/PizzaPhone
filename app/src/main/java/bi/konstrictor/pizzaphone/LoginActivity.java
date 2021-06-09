@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         user_name = findViewById(R.id.user_name);
-
     }
 
     public void listerLesPizzas(View view) {
@@ -54,28 +53,33 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String json = response.body().string();
-                String reminder = "";
-                for(String cookie: response.headers().get("Set-Cookie").split(";")) {
-                    if (cookie.contains("PHPSESSID")) {
-                        reminder = cookie;
-                        try {
-                            JSONObject j = new JSONObject(json);
-                            if (j.getString("return").equals("connected")) {
-                                Intent intent = new Intent(LoginActivity.this, ListeActivity.class);
-                                intent.putExtra("reminder", reminder);
-                                startActivity(intent);
-                                LoginActivity.this.finish();
-                            } else {
-                                HOST.toast(LoginActivity.this, "les infos semblent incorrectes", Toast.LENGTH_LONG);
+            public void onResponse(Call call, Response response) {
+                String json = null;
+                try {
+                    json = response.body().string();
+                    String reminder = "";
+                    for(String cookie: response.headers().get("Set-Cookie").split(";")) {
+                        if (cookie.contains("PHPSESSID")) {
+                            reminder = cookie;
+                            try {
+                                JSONObject j = new JSONObject(json);
+                                if (j.getString("return").equals("connected")) {
+                                    Intent intent = new Intent(LoginActivity.this, ListeActivity.class);
+                                    intent.putExtra("reminder", reminder);
+                                    startActivity(intent);
+                                    LoginActivity.this.finish();
+                                } else {
+                                    HOST.toast(LoginActivity.this, "les infos semblent incorrectes", Toast.LENGTH_LONG);
+                                }
+                            } catch (final Exception e) {
+                                HOST.toast(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG);
+                            } finally {
+                                break;
                             }
-                        } catch (final Exception e) {
-                            HOST.toast(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG);
-                        } finally {
-                            break;
                         }
                     }
+                } catch (IOException e) {
+                    HOST.toast(LoginActivity.this, "les infos semblent incorrectes", Toast.LENGTH_LONG);
                 }
             }
         });
