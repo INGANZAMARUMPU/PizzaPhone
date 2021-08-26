@@ -27,7 +27,11 @@ public class Commande {
     }
 
     private String[] getReferences(String references) {
-        String pure_str = references.replace("\"", "").replace("[", "").replace("]", "").replace("\\", "");
+        String pure_str = references
+                .replace("\"", "")
+                .replace("[", "")
+                .replace("]", "")
+                .replace("\\", "");
         return pure_str.split(",");
     }
 
@@ -49,5 +53,16 @@ public class Commande {
             displayed.add(s);
         }
         return txt.substring(0, txt.length()-2);
+    }
+
+    public String toPrintableString() {
+        ArrayList<String> displayed = new ArrayList<>();
+        String txt = "";
+        for(String s: references){
+            if(displayed.contains(s)) continue;
+            txt += ""+getQuantite(s)+" x "+s+"\n";
+            displayed.add(s);
+        }
+        return txt.substring(0, txt.length()-2) + "\n\n";
     }
 }

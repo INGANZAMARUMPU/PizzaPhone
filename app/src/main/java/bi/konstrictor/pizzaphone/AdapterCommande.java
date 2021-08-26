@@ -19,10 +19,10 @@ import bi.konstrictor.pizzaphone.Commande;
 import bi.konstrictor.pizzaphone.R;
 
 public class AdapterCommande extends RecyclerView.Adapter<AdapterCommande.CommandeItem>{
-    private Activity activity;
+    private CommandesActivity activity;
     private ArrayList<Commande> commandes;
 
-    public AdapterCommande(Activity activity, ArrayList<Commande> commandes) {
+    public AdapterCommande(CommandesActivity activity, ArrayList<Commande> commandes) {
         this.activity = activity;
         this.commandes = commandes;
     }
@@ -41,6 +41,12 @@ public class AdapterCommande extends RecyclerView.Adapter<AdapterCommande.Comman
         holder.txt_commande_prix.setText(commande.total);
         holder.txt_references.setText(commande.toString());
         holder.txt_commande_date.setText(commande.time);
+        holder.btn_card_print.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.printCommande(commande);
+            }
+        });
     }
 
     @Override
@@ -53,13 +59,17 @@ public class AdapterCommande extends RecyclerView.Adapter<AdapterCommande.Comman
     }
 
     public class CommandeItem extends RecyclerView.ViewHolder {
+
         TextView txt_id_commande, txt_commande_prix, txt_references, txt_commande_date;
+        Button btn_card_print;
+
         public CommandeItem(@NonNull View itemView) {
             super(itemView);
             txt_id_commande = itemView.findViewById(R.id.txt_id_commande);
             txt_references = itemView.findViewById(R.id.txt_references);
             txt_commande_prix = itemView.findViewById(R.id.txt_commande_prix);
             txt_commande_date = itemView.findViewById(R.id.txt_commande_date);
+            btn_card_print = itemView.findViewById(R.id.btn_card_print);
         }
     }
 }

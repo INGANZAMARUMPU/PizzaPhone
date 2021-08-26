@@ -58,5 +58,13 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_gravity="end"/>
+        <Button
+            android:id="@+id/btn_card_print"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:background="@color/colorPrimary"
+            android:text="Imprimer"
+            android:layout_marginTop="5dp"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
